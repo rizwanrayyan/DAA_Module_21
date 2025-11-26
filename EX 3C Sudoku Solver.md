@@ -1,26 +1,79 @@
 # EX 3C Sudoku Solver
-## DATE:
+
+## DATE:29-10-2025
 ## AIM:
 To write a python program to find the solution of sudoku puzzle using Backtracking.
 
 
 ## Algorithm
-1. 
-2. 
-3. 
-4.  
-5.   
+
+1. Start from the first empty cell on the board.
+2. Try placing values from 1 to 9 in the cell, one by one.
+3. For each value, check if placing it violates Sudoku rules (row, column, and subgrid uniqueness).
+4. If a valid value is found, place it and recursively try to solve the next empty cell.
+5. If no value is valid, backtrack by resetting the cell and trying the next possible value.
+6. Continue until the board is completely filled or no solution exists.
 
 ## Program:
 ```
-/*
 Program to implement to to find the solution of sudoku puzzle using Backtracking.
-Developed by: 
-Register Number:  
-*/
+Developed by: RIZWAN T
+Register Number: 212222040134
+```
+```py
+board = [
+    [0, 0, 0, 8, 0, 0, 4, 0, 3],
+    [2, 0, 0, 0, 0, 4, 8, 9, 0],
+    [0, 9, 0, 0, 0, 0, 0, 0, 2],
+    [0, 0, 0, 0, 2, 9, 0, 1, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 7, 0, 6, 5, 0, 0, 0, 0],
+    [9, 0, 0, 0, 0, 0, 0, 8, 0],
+    [0, 6, 2, 7, 0, 0, 0, 0, 1],
+    [4, 0, 3, 0, 0, 6, 0, 0, 0]
+]
+
+def printBoard(board):
+    for i in range(0, 9):
+        for j in range(0, 9):
+            print(board[i][j], end=" ")
+        print()
+
+def isPossible(board, row, col, val):
+    for j in range(0, 9):
+        if board[row][j] == val:
+            return False
+
+    for i in range(0, 9):
+        if board[i][col] == val:
+            return False
+
+    startRow = (row // 3) * 3
+    startCol = (col // 3) * 3
+    for i in range(0, 3):
+        for j in range(0, 3):
+            if board[startRow+i][startCol+j] == val:
+                return False
+    return True
+
+def solve():
+    for i in range(0, 9):
+        for j in range(0, 9):
+            if board[i][j] == 0:
+                for val in range(1, 10):
+                    if isPossible(board, i, j, val):
+                        board[i][j] = val
+                        solve()
+                        board[i][j] = 0
+                return
+    printBoard(board)
+
+solve() 
 ```
 
 ## Output:
+
+![image](https://github.com/user-attachments/assets/1f444d4b-babe-491c-9e1a-08aeea11498e)
 
 
 
